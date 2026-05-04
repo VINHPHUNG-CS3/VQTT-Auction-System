@@ -28,8 +28,8 @@ public class Electronics extends Item {
     }
 
     @Override
-    public String getCategory() {
-        return "ELECTRONICS";
+    public ItemCategory getCategory() {
+        return ItemCategory.ELECTRONICS;
     }
 
     @Override
