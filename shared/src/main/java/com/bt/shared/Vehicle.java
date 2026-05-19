@@ -24,7 +24,6 @@ public class Vehicle extends Item {
         setMileage(mileage);
     }
 
-    // Getters and Setters
     public String getMake() {
         return make;
     }
@@ -68,7 +67,6 @@ public class Vehicle extends Item {
         return ItemCategory.VEHICLE;
     }
 
-    // Polymorphism: Adding vehicle info to the standard display
     @Override
     public void displayInfo() {
         super.displayInfo();
