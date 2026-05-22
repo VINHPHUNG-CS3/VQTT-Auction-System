@@ -2,7 +2,6 @@ package com.bt.shared.protocol;
 
 import com.google.gson.JsonElement;
 
-
 import java.util.UUID;
 
 /**

@@ -67,7 +67,6 @@ public class Bidder extends User {
         return UserRole.BIDDER;
     }
 
-    // Polymorphism: Adding balance info to the standard display
     @Override
     public void displayInfo() {
         super.displayInfo();

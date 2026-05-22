@@ -34,7 +34,6 @@ public abstract class Item extends Entity {
         setStartingPrice(startingPrice);
     }
 
-    // Getters and Setters
     public String getName() {
         return name;
     }
