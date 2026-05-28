@@ -1,4 +1,5 @@
 @startuml
+skinparam classAttributeIconSize 0
 class com.bt.server.service.AdminService {
 - {static} Logger log
 - UserDAO userDAO

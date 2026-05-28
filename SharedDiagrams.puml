@@ -1,4 +1,5 @@
 @startuml
+skinparam classAttributeIconSize 0
 class com.bt.shared.protocol.dto.PayAuctionRequest {
 - long auctionId
 + <<Create>> PayAuctionRequest()
