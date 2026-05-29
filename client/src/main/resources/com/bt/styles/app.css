@@ -708,3 +708,42 @@
     -fx-background-color: -accent-hover;
     -fx-border-color: -accent-hover;
 }
+
+/* Box hiển thị số dư hiện tại */
+.balance-box {
+    -fx-background-color: #f0fdf4;
+    -fx-background-radius: 8;
+    -fx-border-color: #86efac;
+    -fx-border-radius: 8;
+    -fx-border-width: 1;
+}
+
+.balance-label {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #15803d;
+}
+
+/* Nút chọn nhanh số tiền */
+.button-preset {
+    -fx-background-color: #f8fafc;
+    -fx-text-fill: #0f172a;
+    -fx-border-color: #cbd5e1;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-border-width: 1;
+    -fx-font-size: 13px;
+    -fx-cursor: hand;
+    -fx-padding: 8 12 8 12;
+}
+
+.button-preset:hover {
+    -fx-background-color: #f59e0b;
+    -fx-text-fill: white;
+    -fx-border-color: #d97706;
+}
+
+.button-preset:pressed {
+    -fx-background-color: #b45309;
+    -fx-text-fill: white;
+}

@@ -25,7 +25,10 @@
             <Label fx:id="userInfoLabel" styleClass="topbar-user" />
             <Button fx:id="sellerBtn" onAction="#openSeller" text="Quản lý sản phẩm" />
             <Button fx:id="adminBtn" onAction="#openAdmin" text="Admin" />
+            <Button fx:id="depositBtn" onAction="#openDeposit" text="💰 Nạp tiền"
+                    styleClass="button-accent" />
             <Button onAction="#logout" text="Đăng xuất" styleClass="button-ghost" />
+
         </HBox>
     </top>
 

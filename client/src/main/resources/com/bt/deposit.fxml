@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane styleClass="app-bg"
+            xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.bt.client.controller.DepositController">
+
+    <!-- ===== TOPBAR ===== -->
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="18" styleClass="topbar">
+            <Label text="ONLINE AUCTION SYSTEM" styleClass="brand-pill-dark" />
+            <Label text="Nạp tiền" styleClass="topbar-title" />
+            <Region HBox.hgrow="ALWAYS" />
+            <Button onAction="#goBack" text="← Quay lại Dashboard" styleClass="button-ghost" />
+        </HBox>
+    </top>
+
+    <!-- ===== MAIN CONTENT ===== -->
+    <center>
+        <VBox alignment="TOP_CENTER" spacing="0">
+            <padding><Insets top="48" right="0" bottom="48" left="0" /></padding>
+
+            <!-- Card nạp tiền -->
+            <VBox styleClass="card" maxWidth="520" spacing="22">
+                <padding><Insets top="36" right="40" bottom="36" left="40" /></padding>
+
+                <!-- Tiêu đề -->
+                <Label text="💳 Nạp tiền vào tài khoản" styleClass="h2" />
+                <Separator />
+
+                <!-- Số dư hiện tại -->
+                <HBox alignment="CENTER_LEFT" spacing="12" styleClass="balance-box">
+                    <padding><Insets top="10" right="16" bottom="10" left="16" /></padding>
+                    <Label fx:id="currentBalanceLabel" styleClass="balance-label" />
+                </HBox>
+
+                <!-- Preset buttons -->
+                <VBox spacing="8">
+                    <Label text="Chọn nhanh:" styleClass="label-form" />
+                    <HBox spacing="8">
+                        <Button fx:id="preset1Btn" styleClass="button-preset" HBox.hgrow="ALWAYS" maxWidth="Infinity" />
+                        <Button fx:id="preset2Btn" styleClass="button-preset" HBox.hgrow="ALWAYS" maxWidth="Infinity" />
+                        <Button fx:id="preset3Btn" styleClass="button-preset" HBox.hgrow="ALWAYS" maxWidth="Infinity" />
+                    </HBox>
+                    <HBox spacing="8">
+                        <Button fx:id="preset4Btn" styleClass="button-preset" HBox.hgrow="ALWAYS" maxWidth="Infinity" />
+                        <Button fx:id="preset5Btn" styleClass="button-preset" HBox.hgrow="ALWAYS" maxWidth="Infinity" />
+                    </HBox>
+                </VBox>
+
+                <!-- Nhập thủ công -->
+                <VBox spacing="6">
+                    <Label text="Hoặc nhập số tiền (VNĐ):" styleClass="label-form" />
+                    <TextField fx:id="amountField"
+                               promptText="Ví dụ: 2000000"
+                               styleClass="text-field" />
+                    <Label text="Tối thiểu: 1,000 đ  |  Tối đa mỗi lần: 1,000,000,000 đ"
+                           styleClass="muted" />
+                </VBox>
+
+                <!-- Nút nạp tiền -->
+                <Button fx:id="depositBtn"
+                        text="Nạp tiền"
+                        onAction="#handleDeposit"
+                        maxWidth="Infinity"
+                        styleClass="button-accent"
+                        prefHeight="44" />
+
+                <!-- Status label -->
+                <Label fx:id="statusLabel" styleClass="muted" wrapText="true" />
+
+            </VBox>
+        </VBox>
+    </center>
+
+</BorderPane>
