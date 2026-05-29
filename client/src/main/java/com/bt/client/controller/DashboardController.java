@@ -63,6 +63,7 @@ public class DashboardController {
     @FXML private TableColumn<AuctionDto, String> colStatus;
     @FXML private TableColumn<AuctionDto, Void> colAction;
     @FXML private Label statusLabel;
+    @FXML private Button depositBtn;
 
     private final AuctionClient client = new AuctionClient();
     private final ObservableList<AuctionDto> data = FXCollections.observableArrayList();
@@ -77,6 +78,7 @@ public class DashboardController {
                 : "(chưa đăng nhập)");
 
         sellerBtn.setVisible(s.getRole() == UserRole.SELLER);
+        depositBtn.setVisible(s.getRole() == UserRole.BIDDER);
         adminBtn.setVisible(s.getRole() == UserRole.ADMIN);
 
         statusFilter.setItems(FXCollections.observableArrayList(
@@ -236,6 +238,12 @@ public class DashboardController {
             // Status đổi → refresh để row hiển thị nút phù hợp
             Platform.runLater(this::refresh);
         }
+    }
+
+    @FXML
+    public void openDeposit() {
+        cleanup();
+        SceneManager.get().switchTo("deposit");
     }
 
     @FXML

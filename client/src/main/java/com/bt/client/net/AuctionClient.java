@@ -47,6 +47,9 @@ import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.TimeoutException;
 
+import com.bt.shared.protocol.dto.DepositRequest;
+import com.bt.shared.protocol.dto.DepositResponse;
+
 /**
  * High-level API mà UI controller gọi. Bao bọc {@link ServerConnection},
  * convert response chung thành DTO cụ thể, và biến error response thành
@@ -162,6 +165,20 @@ public class AuctionClient {
                 new RateSellerRequest(auctionId, stars, comment));
         return MessageCodec.payloadAs(resp, RateSellerResponse.class);
     }
+
+    /**
+     * Nạp tiền vào tài khoản Bidder.
+     *
+     * @param amount  số tiền cần nạp (VNĐ), phải trong khoảng [1_000, 1_000_000_000]
+     * @return        DepositResponse chứa số tiền đã nạp và balance mới
+     * @throws AuctionClientException nếu server từ chối (số tiền sai, vượt giới hạn,...)
+     */
+    public DepositResponse deposit(double amount) throws AuctionClientException {
+        Message resp = sendOrThrow(MessageType.DEPOSIT_REQUEST,
+                new DepositRequest(amount));
+        return MessageCodec.payloadAs(resp, DepositResponse.class);
+    }
+
 
     // ---------- Admin ----------
 

@@ -27,6 +27,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import com.bt.server.service.DepositService;
 
 /**
  * Bootstrap server. Wiring:
@@ -66,6 +67,7 @@ public class AuctionServer {
         SellerService sellerService =
                 new SellerService(itemDAO, auctionDAO, userDAO, auctionService, registry, eventBus);
         PaymentService paymentService = new PaymentService(userDAO, registry);
+        DepositService depositService = new DepositService(userDAO);
         RatingService ratingService = new RatingService();
         AdminService adminService = new AdminService(userDAO);
 
@@ -109,7 +111,8 @@ public class AuctionServer {
                         RequestRouter router = new RequestRouter(
                                 conn, authService, auctionService,
                                 sellerService, paymentService, ratingService,
-                                adminService, eventBus, registry);
+                                adminService, depositService,
+                                eventBus, registry);
                         router.serve();
                     });
                 } catch (IOException ioe) {
