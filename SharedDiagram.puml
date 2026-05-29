@@ -1,0 +1,1223 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+class com.bt.shared.protocol.dto.PayAuctionRequest {
+- long auctionId
++ <<Create>> PayAuctionRequest()
++ <<Create>> PayAuctionRequest(long)
++ long getAuctionId()
++ void setAuctionId(long)
+}
+
+
+class com.bt.shared.EntityEqualsTest {
+~ void differentTypeNotEqual()
+~ void sameIdSameTypeEqual()
+~ void hashSetDeduplicatesById()
+~ void cannotChangeIdOnceSet()
+~ void canSetIdAfterEmpty()
+}
+
+class com.bt.shared.protocol.dto.RegisterAutoBidRequest {
+- long auctionId
+- double maxBid
+- double increment
++ <<Create>> RegisterAutoBidRequest()
++ <<Create>> RegisterAutoBidRequest(long,double,double)
++ long getAuctionId()
++ void setAuctionId(long)
++ double getMaxBid()
++ void setMaxBid(double)
++ double getIncrement()
++ void setIncrement(double)
+}
+
+
+class com.bt.shared.protocol.dto.CreateItemRequest {
+- String name
+- String description
+- double startingPrice
+- ItemCategory category
+- Map<String,Object> spec
++ <<Create>> CreateItemRequest()
++ String getName()
++ void setName(String)
++ String getDescription()
++ void setDescription(String)
++ double getStartingPrice()
++ void setStartingPrice(double)
++ ItemCategory getCategory()
++ void setCategory(ItemCategory)
++ Map<String,Object> getSpec()
++ void setSpec(Map<String,Object>)
+}
+
+
+class com.bt.shared.protocol.dto.AuctionCreatedEvent {
+- AuctionDto auction
++ <<Create>> AuctionCreatedEvent()
++ <<Create>> AuctionCreatedEvent(AuctionDto)
++ AuctionDto getAuction()
++ void setAuction(AuctionDto)
+}
+
+
+class com.bt.shared.protocol.dto.BidDto {
+- long bidId
+- long auctionId
+- long bidderId
+- String bidderUsername
+- double amount
+- LocalDateTime bidTime
+- boolean autoBid
++ <<Create>> BidDto()
++ long getBidId()
++ void setBidId(long)
++ long getAuctionId()
++ void setAuctionId(long)
++ long getBidderId()
++ void setBidderId(long)
++ String getBidderUsername()
++ void setBidderUsername(String)
++ double getAmount()
++ void setAmount(double)
++ LocalDateTime getBidTime()
++ void setBidTime(LocalDateTime)
++ boolean isAutoBid()
++ void setAutoBid(boolean)
+}
+
+
+class com.bt.shared.AuctionTest {
+- Seller seller
+- Bidder alice
+- Bidder bob
+- Auction auction
+~ void setUp()
+~ void initialStatusOpen()
+~ void cannotJumpFromOpenToPaid()
+~ void happyPath()
+~ void cannotBidWhenOpen()
+~ void cannotBidAtOrBelowStartingPrice()
+~ void validBid()
+~ void selfOutbidRejected()
+~ void sellerCannotBidOwnAuction()
+~ void antiSnipingExtension()
+~ void bidHistoryIsUnmodifiable()
+~ void winnerIsHighestBidder()
+}
+
+
+class com.bt.shared.exception.AuctionException {
+- {static} long serialVersionUID
++ <<Create>> AuctionException(String)
++ <<Create>> AuctionException(String,Throwable)
+}
+
+
+class com.bt.shared.protocol.dto.CancelAutoBidResponse {
+- long auctionId
+- boolean canceled
++ <<Create>> CancelAutoBidResponse()
++ <<Create>> CancelAutoBidResponse(long,boolean)
++ long getAuctionId()
++ void setAuctionId(long)
++ boolean isCanceled()
++ void setCanceled(boolean)
+}
+
+
+abstract class com.bt.shared.User {
+- {static} long serialVersionUID
+- {static} Pattern EMAIL_PATTERN
+- {static} int USERNAME_MIN_LEN
+- {static} int USERNAME_MAX_LEN
+- String username
+- String email
+- String password
+# <<Create>> User()
+# <<Create>> User(String,String,String)
+- {static} void validate(String,String,String)
++ {static} void validateOrThrow(String,String,String)
++ String getUsername()
++ void setUsername(String)
++ void setUsernameRaw(String)
++ String getEmail()
++ void setEmail(String)
++ void setEmailRaw(String)
++ String getPassword()
++ void setPasswordRaw(String)
++ void setPassword(String)
++ {abstract}UserRole getRole()
++ void displayInfo()
++ String toString()
++ boolean equals(Object)
++ int hashCode()
+}
+
+
+class com.bt.shared.protocol.dto.ListAuctionsRequest {
+- AuctionStatus statusFilter
++ <<Create>> ListAuctionsRequest()
++ <<Create>> ListAuctionsRequest(AuctionStatus)
++ AuctionStatus getStatusFilter()
++ void setStatusFilter(AuctionStatus)
+}
+
+
+class com.bt.shared.protocol.dto.GetAuctionRequest {
+- long auctionId
++ <<Create>> GetAuctionRequest()
++ <<Create>> GetAuctionRequest(long)
++ long getAuctionId()
++ void setAuctionId(long)
+}
+
+
+class com.bt.shared.protocol.MessageCodecTest {
+~ void roundTripLoginRequest()
+~ void localDateTimeRoundTrip()
+~ void invalidJsonThrows()
+~ void pipedStreamFlow()
+}
+
+class com.bt.shared.event.AuctionFinishedDomainEvent {
+- {static} long serialVersionUID
+- Long winnerBidderId
+- String winnerUsername
+- double finalPrice
++ <<Create>> AuctionFinishedDomainEvent(long,Long,String,double)
++ Long getWinnerBidderId()
++ String getWinnerUsername()
++ double getFinalPrice()
+}
+
+
+class com.bt.shared.Art {
+- {static} long serialVersionUID
+- {static} int MIN_YEAR
+- String artist
+- int yearCreated
++ <<Create>> Art()
++ <<Create>> Art(String,String,double,String,int)
++ String getArtist()
++ void setArtist(String)
++ int getYearCreated()
++ void setYearCreated(int)
++ void setArtistRaw(String)
++ void setYearCreatedRaw(int)
++ ItemCategory getCategory()
++ void displayInfo()
+}
+
+
+class com.bt.shared.exception.AuthenticationException {
+- {static} long serialVersionUID
++ <<Create>> AuthenticationException(String)
+}
+
+
+class com.bt.shared.protocol.dto.GetBidHistoryRequest {
+- long auctionId
++ <<Create>> GetBidHistoryRequest()
++ <<Create>> GetBidHistoryRequest(long)
++ long getAuctionId()
++ void setAuctionId(long)
+}
+
+
+class com.bt.shared.protocol.dto.RegisterResponse {
+- long userId
+- String username
++ <<Create>> RegisterResponse()
++ <<Create>> RegisterResponse(long,String)
++ long getUserId()
++ void setUserId(long)
++ String getUsername()
++ void setUsername(String)
+}
+
+
+class com.bt.shared.protocol.dto.CreateAuctionRequest {
+- long itemId
+- LocalDateTime startTime
+- LocalDateTime endTime
++ <<Create>> CreateAuctionRequest()
++ <<Create>> CreateAuctionRequest(long,LocalDateTime,LocalDateTime)
++ long getItemId()
++ void setItemId(long)
++ LocalDateTime getStartTime()
++ void setStartTime(LocalDateTime)
++ LocalDateTime getEndTime()
++ void setEndTime(LocalDateTime)
+}
+
+
+class com.bt.shared.protocol.dto.DepositRequest {
++ {static} double MAX_DEPOSIT
+- double amount
++ <<Create>> DepositRequest()
++ <<Create>> DepositRequest(double)
++ double getAmount()
++ void setAmount(double)
+}
+
+
+class com.bt.shared.exception.AuctionStateException {
+- {static} long serialVersionUID
++ <<Create>> AuctionStateException(String)
+}
+
+
+abstract class com.bt.shared.event.AuctionEvent {
+- {static} long serialVersionUID
+- long auctionId
+- LocalDateTime timestamp
+# <<Create>> AuctionEvent(long)
++ long getAuctionId()
++ LocalDateTime getTimestamp()
+}
+
+
+class com.bt.shared.Auction {
+- {static} long serialVersionUID
+- {static} Map<AuctionStatus,EnumSet<AuctionStatus>> ALLOWED_TRANSITIONS
++ {static} Duration DEFAULT_ANTI_SNIPE_WINDOW
++ {static} Duration DEFAULT_ANTI_SNIPE_EXTENSION
+- Item item
+- Long sellerId
+- Seller seller
+- LocalDateTime startTime
+- LocalDateTime endTime
+- AuctionStatus status
+- List<BidTransaction> bidHistory
+- BidTransaction highestBid
+- Double currentPriceSnapshot
++ <<Create>> Auction()
++ <<Create>> Auction(Item,Seller,LocalDateTime,LocalDateTime)
++ void transitionTo(AuctionStatus)
++ void start()
++ void finish()
++ void markPaid()
++ void cancel()
++ double getCurrentPrice()
++ void setCurrentPriceRaw(double)
++ BidTransaction placeBid(Bidder,double)
+- void applyAntiSnipingIfNeeded(LocalDateTime)
++ Bidder getWinner()
++ Item getItem()
++ void setItem(Item)
++ Seller getSeller()
++ void setSeller(Seller)
++ Long getSellerId()
++ void setSellerId(Long)
++ LocalDateTime getStartTime()
++ void setStartTime(LocalDateTime)
++ LocalDateTime getEndTime()
++ void setEndTime(LocalDateTime)
++ AuctionStatus getStatus()
++ void setStatus(AuctionStatus)
++ List<BidTransaction> getBidHistory()
++ BidTransaction getHighestBid()
++ void displayInfo()
+}
+
+
+enum com.bt.shared.AuctionStatus {
++  OPEN
++  RUNNING
++  FINISHED
++  PAID
++  CANCELED
+}
+
+class com.bt.shared.protocol.dto.PlaceBidRequest {
+- long auctionId
+- long bidderId
+- double amount
++ <<Create>> PlaceBidRequest()
++ <<Create>> PlaceBidRequest(long,long,double)
++ long getAuctionId()
++ void setAuctionId(long)
++ long getBidderId()
++ void setBidderId(long)
++ double getAmount()
++ void setAmount(double)
+}
+
+
+class com.bt.shared.ItemFactory {
++ {static} String KEY_BRAND
++ {static} String KEY_WARRANTY_MONTHS
++ {static} String KEY_ARTIST
++ {static} String KEY_YEAR_CREATED
++ {static} String KEY_MAKE
++ {static} String KEY_MODEL
++ {static} String KEY_MILEAGE
+- <<Create>> ItemFactory()
++ {static} Item create(ItemCategory,String,String,double,Map<String,Object>)
++ {static} Item create(String,String,String,double,Map<String,Object>)
+- {static} String requireString(Map<String,Object>,String)
+- {static} int requireInt(Map<String,Object>,String)
+}
+
+
+class com.bt.shared.protocol.dto.RateSellerResponse {
+- long auctionId
+- long sellerId
+- int stars
+- double newAverageRating
+- int totalRatings
++ <<Create>> RateSellerResponse()
++ long getAuctionId()
++ void setAuctionId(long)
++ long getSellerId()
++ void setSellerId(long)
++ int getStars()
++ void setStars(int)
++ double getNewAverageRating()
++ void setNewAverageRating(double)
++ int getTotalRatings()
++ void setTotalRatings(int)
+}
+
+
+class com.bt.shared.protocol.dto.BidPlacedEvent {
+- long auctionId
+- long bidderId
+- String bidderUsername
+- double amount
+- LocalDateTime bidTime
+- LocalDateTime newEndTime
++ <<Create>> BidPlacedEvent()
++ long getAuctionId()
++ void setAuctionId(long)
++ long getBidderId()
++ void setBidderId(long)
++ String getBidderUsername()
++ void setBidderUsername(String)
++ double getAmount()
++ void setAmount(double)
++ LocalDateTime getBidTime()
++ void setBidTime(LocalDateTime)
++ LocalDateTime getNewEndTime()
++ void setNewEndTime(LocalDateTime)
+}
+
+
+class com.bt.shared.protocol.dto.ErrorResponse {
+- ErrorCode code
+- String message
++ <<Create>> ErrorResponse()
++ <<Create>> ErrorResponse(ErrorCode,String)
++ ErrorCode getCode()
++ void setCode(ErrorCode)
++ String getMessage()
++ void setMessage(String)
+}
+
+
+enum com.bt.shared.ItemCategory {
++  ELECTRONICS
++  ART
++  VEHICLE
++ {static} ItemCategory fromString(String)
+}
+
+
+class com.bt.shared.Vehicle {
+- {static} long serialVersionUID
+- String make
+- String model
+- int mileage
++ <<Create>> Vehicle()
++ <<Create>> Vehicle(String,String,double,String,String,int)
++ String getMake()
++ void setMake(String)
++ String getModel()
++ void setModel(String)
++ int getMileage()
++ void setMileage(int)
++ void setMakeRaw(String)
++ void setModelRaw(String)
++ void setMileageRaw(int)
++ ItemCategory getCategory()
++ void displayInfo()
+}
+
+
+class com.bt.shared.event.BidPlacedDomainEvent {
+- {static} long serialVersionUID
+- long bidderId
+- String bidderUsername
+- double amount
+- LocalDateTime newEndTime
++ <<Create>> BidPlacedDomainEvent(long,long,String,double,LocalDateTime)
++ long getBidderId()
++ String getBidderUsername()
++ double getAmount()
++ LocalDateTime getNewEndTime()
+}
+
+
+class com.bt.shared.protocol.dto.RegisterRequest {
+- String username
+- String email
+- String password
+- UserRole role
++ <<Create>> RegisterRequest()
++ <<Create>> RegisterRequest(String,String,String,UserRole)
++ String getUsername()
++ void setUsername(String)
++ String getEmail()
++ void setEmail(String)
++ String getPassword()
++ void setPassword(String)
++ UserRole getRole()
++ void setRole(UserRole)
+}
+
+
+class com.bt.shared.protocol.dto.CreateAuctionResponse {
+- AuctionDto auction
++ <<Create>> CreateAuctionResponse()
++ <<Create>> CreateAuctionResponse(AuctionDto)
++ AuctionDto getAuction()
++ void setAuction(AuctionDto)
+}
+
+
+class com.bt.shared.protocol.dto.SetUserActiveResponse {
+- long userId
+- boolean active
+- boolean success
++ <<Create>> SetUserActiveResponse()
++ <<Create>> SetUserActiveResponse(long,boolean,boolean)
++ long getUserId()
++ void setUserId(long)
++ boolean isActive()
++ void setActive(boolean)
++ boolean isSuccess()
++ void setSuccess(boolean)
+}
+
+
+class com.bt.shared.event.AuctionStartedDomainEvent {
+- {static} long serialVersionUID
++ <<Create>> AuctionStartedDomainEvent(long)
+}
+
+
+enum com.bt.shared.protocol.ErrorCode {
++  AUTH_FAILED
++  AUTH_DISABLED
++  REGISTER_DUPLICATE
++  VALIDATION_FAILED
++  INVALID_BID
++  AUCTION_STATE_INVALID
++  NOT_FOUND
++  FORBIDDEN
++  INTERNAL_ERROR
++  UNSUPPORTED_TYPE
++  BAD_REQUEST
+}
+
+class com.bt.shared.protocol.MessageCodec {
+- {static} DateTimeFormatter ISO
++ {static} Gson GSON
+- <<Create>> MessageCodec()
++ {static} String encode(Message)
++ {static} JsonElement toPayload(Object)
++ {static} Message build(MessageType,String,Object)
++ {static} Message decode(String)
++ {static} T payloadAs(Message,Class<T>)
++ {static} T payloadAs(Message,Type)
++ {static} BufferedReader reader(InputStream)
++ {static} BufferedWriter writer(OutputStream)
++ {static} void writeMessage(BufferedWriter,Message)
++ {static} Message readMessage(BufferedReader)
+}
+
+
+class com.bt.shared.protocol.dto.LoginResponse {
+- long userId
+- String username
+- String email
+- UserRole role
+- double accountBalance
+- double sellerRating
+- int accessLevel
++ <<Create>> LoginResponse()
++ long getUserId()
++ void setUserId(long)
++ String getUsername()
++ void setUsername(String)
++ String getEmail()
++ void setEmail(String)
++ UserRole getRole()
++ void setRole(UserRole)
++ double getAccountBalance()
++ void setAccountBalance(double)
++ double getSellerRating()
++ void setSellerRating(double)
++ int getAccessLevel()
++ void setAccessLevel(int)
+}
+
+
+class com.bt.shared.protocol.dto.ListUsersRequest {
+- UserRole roleFilter
+- Boolean activeFilter
++ <<Create>> ListUsersRequest()
++ <<Create>> ListUsersRequest(UserRole,Boolean)
++ UserRole getRoleFilter()
++ void setRoleFilter(UserRole)
++ Boolean getActiveFilter()
++ void setActiveFilter(Boolean)
+}
+
+
+class com.bt.shared.protocol.Message {
+- MessageType type
+- String requestId
+- JsonElement payload
++ <<Create>> Message()
++ <<Create>> Message(MessageType,String,JsonElement)
++ {static} String newRequestId()
++ MessageType getType()
++ void setType(MessageType)
++ String getRequestId()
++ void setRequestId(String)
++ JsonElement getPayload()
++ void setPayload(JsonElement)
++ String toString()
+}
+
+
+class com.bt.shared.Electronics {
+- {static} long serialVersionUID
+- String brand
+- int warrantyMonths
++ <<Create>> Electronics()
++ <<Create>> Electronics(String,String,double,String,int)
++ String getBrand()
++ void setBrand(String)
++ void setBrandRaw(String)
++ void setWarrantyMonthsRaw(int)
++ int getWarrantyMonths()
++ void setWarrantyMonths(int)
++ ItemCategory getCategory()
++ void displayInfo()
+}
+
+
+class com.bt.shared.protocol.dto.PlaceBidResponse {
+- long bidId
+- long auctionId
+- double newCurrentPrice
+- LocalDateTime newEndTime
+- LocalDateTime bidTime
++ <<Create>> PlaceBidResponse()
++ long getBidId()
++ void setBidId(long)
++ long getAuctionId()
++ void setAuctionId(long)
++ double getNewCurrentPrice()
++ void setNewCurrentPrice(double)
++ LocalDateTime getNewEndTime()
++ void setNewEndTime(LocalDateTime)
++ LocalDateTime getBidTime()
++ void setBidTime(LocalDateTime)
+}
+
+
+class com.bt.shared.BidTransaction {
+- {static} long serialVersionUID
+- Long auctionId
+- Long bidderId
+- Bidder bidder
+- double bidAmount
+- LocalDateTime timestamp
++ <<Create>> BidTransaction()
++ <<Create>> BidTransaction(Bidder,double)
++ Long getAuctionId()
++ void setAuctionId(Long)
++ Long getBidderId()
++ void setBidderId(Long)
++ Bidder getBidder()
++ void setBidder(Bidder)
++ double getBidAmount()
++ void setBidAmount(double)
++ LocalDateTime getTimestamp()
++ void setTimestamp(LocalDateTime)
++ int compareTo(BidTransaction)
++ void displayInfo()
++ String toString()
+}
+
+
+class com.bt.shared.Admin {
+- {static} long serialVersionUID
++ {static} int MIN_LEVEL
++ {static} int MAX_LEVEL
+- int accessLevel
++ <<Create>> Admin()
++ <<Create>> Admin(String,String,String,int)
++ int getAccessLevel()
++ void setAccessLevelRaw(int)
++ void setAccessLevel(int)
++ boolean isSuperAdmin()
++ UserRole getRole()
++ void displayInfo()
+}
+
+
+class com.bt.shared.protocol.dto.AuctionFinishedEvent {
+- long auctionId
+- Long winnerBidderId
+- String winnerUsername
+- double finalPrice
++ <<Create>> AuctionFinishedEvent()
++ long getAuctionId()
++ void setAuctionId(long)
++ Long getWinnerBidderId()
++ void setWinnerBidderId(Long)
++ String getWinnerUsername()
++ void setWinnerUsername(String)
++ double getFinalPrice()
++ void setFinalPrice(double)
+}
+
+
+class com.bt.shared.protocol.dto.SubscriptionResponse {
+- long auctionId
+- boolean subscribed
+- int totalSubscribers
++ <<Create>> SubscriptionResponse()
++ <<Create>> SubscriptionResponse(long,boolean,int)
++ long getAuctionId()
++ void setAuctionId(long)
++ boolean isSubscribed()
++ void setSubscribed(boolean)
++ int getTotalSubscribers()
++ void setTotalSubscribers(int)
+}
+
+
+class com.bt.shared.protocol.dto.CancelAutoBidRequest {
+- long auctionId
++ <<Create>> CancelAutoBidRequest()
++ <<Create>> CancelAutoBidRequest(long)
++ long getAuctionId()
++ void setAuctionId(long)
+}
+
+
+class com.bt.shared.protocol.dto.CreateItemResponse {
+- ItemDto item
++ <<Create>> CreateItemResponse()
++ <<Create>> CreateItemResponse(ItemDto)
++ ItemDto getItem()
++ void setItem(ItemDto)
+}
+
+
+interface com.bt.shared.event.AuctionObserver {
+~ void onBidPlaced(BidPlacedDomainEvent)
+~ void onAuctionStarted(AuctionStartedDomainEvent)
+~ void onAuctionFinished(AuctionFinishedDomainEvent)
+}
+
+enum com.bt.shared.protocol.MessageType {
++  LOGIN_REQUEST
++  LOGIN_RESPONSE
++  REGISTER_REQUEST
++  REGISTER_RESPONSE
++  LIST_AUCTIONS_REQUEST
++  LIST_AUCTIONS_RESPONSE
++  GET_AUCTION_REQUEST
++  GET_AUCTION_RESPONSE
++  GET_BID_HISTORY_REQUEST
++  GET_BID_HISTORY_RESPONSE
++  CREATE_ITEM_REQUEST
++  CREATE_ITEM_RESPONSE
++  LIST_MY_ITEMS_REQUEST
++  LIST_MY_ITEMS_RESPONSE
++  CREATE_AUCTION_REQUEST
++  CREATE_AUCTION_RESPONSE
++  PLACE_BID_REQUEST
++  PLACE_BID_RESPONSE
++  REGISTER_AUTOBID_REQUEST
++  REGISTER_AUTOBID_RESPONSE
++  CANCEL_AUTOBID_REQUEST
++  CANCEL_AUTOBID_RESPONSE
++  SUBSCRIBE_AUCTION_REQUEST
++  UNSUBSCRIBE_AUCTION_REQUEST
++  SUBSCRIPTION_RESPONSE
++  BID_PLACED_EVENT
++  AUCTION_CREATED_EVENT
++  AUCTION_STARTED_EVENT
++  AUCTION_FINISHED_EVENT
++  AUCTION_EXTENDED_EVENT
++  PAY_AUCTION_REQUEST
++  PAY_AUCTION_RESPONSE
++  AUCTION_PAID_EVENT
++  RATE_SELLER_REQUEST
++  RATE_SELLER_RESPONSE
++  DEPOSIT_REQUEST
++  DEPOSIT_RESPONSE
++  PING_REQUEST
++  PONG_RESPONSE
++  LIST_USERS_REQUEST
++  LIST_USERS_RESPONSE
++  SET_USER_ACTIVE_REQUEST
++  SET_USER_ACTIVE_RESPONSE
++  ERROR_RESPONSE
+}
+
+class com.bt.shared.protocol.ProtocolException {
+- {static} long serialVersionUID
++ <<Create>> ProtocolException(String)
++ <<Create>> ProtocolException(String,Throwable)
+}
+
+
+class com.bt.shared.protocol.dto.AuctionDto {
+- long auctionId
+- long itemId
+- String itemName
+- String itemDescription
+- ItemCategory itemCategory
+- double startingPrice
+- double currentPrice
+- long sellerId
+- String sellerUsername
+- LocalDateTime startTime
+- LocalDateTime endTime
+- AuctionStatus status
+- int bidCount
+- Long winnerBidderId
+- String winnerUsername
++ <<Create>> AuctionDto()
++ long getAuctionId()
++ void setAuctionId(long)
++ long getItemId()
++ void setItemId(long)
++ String getItemName()
++ void setItemName(String)
++ String getItemDescription()
++ void setItemDescription(String)
++ ItemCategory getItemCategory()
++ void setItemCategory(ItemCategory)
++ double getStartingPrice()
++ void setStartingPrice(double)
++ double getCurrentPrice()
++ void setCurrentPrice(double)
++ long getSellerId()
++ void setSellerId(long)
++ String getSellerUsername()
++ void setSellerUsername(String)
++ LocalDateTime getStartTime()
++ void setStartTime(LocalDateTime)
++ LocalDateTime getEndTime()
++ void setEndTime(LocalDateTime)
++ AuctionStatus getStatus()
++ void setStatus(AuctionStatus)
++ int getBidCount()
++ void setBidCount(int)
++ Long getWinnerBidderId()
++ void setWinnerBidderId(Long)
++ String getWinnerUsername()
++ void setWinnerUsername(String)
+}
+
+
+class com.bt.shared.protocol.dto.PayAuctionResponse {
+- long auctionId
+- double paidAmount
+- double newBalance
+- LocalDateTime paidAt
++ <<Create>> PayAuctionResponse()
++ long getAuctionId()
++ void setAuctionId(long)
++ double getPaidAmount()
++ void setPaidAmount(double)
++ double getNewBalance()
++ void setNewBalance(double)
++ LocalDateTime getPaidAt()
++ void setPaidAt(LocalDateTime)
+}
+
+
+class com.bt.shared.protocol.dto.ListUsersResponse {
+- List<UserSummaryDto> users
+- int total
++ <<Create>> ListUsersResponse()
++ <<Create>> ListUsersResponse(List<UserSummaryDto>)
++ List<UserSummaryDto> getUsers()
++ void setUsers(List<UserSummaryDto>)
++ int getTotal()
++ void setTotal(int)
+}
+
+
+class com.bt.shared.ItemFactoryTest {
+~ void createElectronics()
+~ void createArt()
+~ void createVehicle()
+~ void missingRequiredField()
+~ void invalidIntField()
+~ void overloadStringCategory()
+~ void invalidStringCategory()
+}
+
+abstract class com.bt.shared.Entity {
+- {static} long serialVersionUID
+- Long id
+- LocalDateTime createdAt
+# <<Create>> Entity()
+# <<Create>> Entity(Long)
++ Long getId()
++ void setId(Long)
++ LocalDateTime getCreatedAt()
++ void setCreatedAt(LocalDateTime)
++ {abstract}void displayInfo()
++ boolean equals(Object)
++ int hashCode()
++ String toString()
+}
+
+
+class com.bt.shared.protocol.dto.GetBidHistoryResponse {
+- long auctionId
+- List<BidDto> bids
++ <<Create>> GetBidHistoryResponse()
++ <<Create>> GetBidHistoryResponse(long,List<BidDto>)
++ long getAuctionId()
++ void setAuctionId(long)
++ List<BidDto> getBids()
++ void setBids(List<BidDto>)
+}
+
+
+class com.bt.shared.protocol.dto.SetUserActiveRequest {
+- long userId
+- boolean active
++ <<Create>> SetUserActiveRequest()
++ <<Create>> SetUserActiveRequest(long,boolean)
++ long getUserId()
++ void setUserId(long)
++ boolean isActive()
++ void setActive(boolean)
+}
+
+
+class com.bt.shared.protocol.dto.ListAuctionsResponse {
+- List<AuctionDto> auctions
++ <<Create>> ListAuctionsResponse()
++ <<Create>> ListAuctionsResponse(List<AuctionDto>)
++ List<AuctionDto> getAuctions()
++ void setAuctions(List<AuctionDto>)
+}
+
+
+abstract class com.bt.shared.Item {
+- {static} long serialVersionUID
+- String name
+- String description
+- double startingPrice
+- Long sellerId
+# <<Create>> Item()
+# <<Create>> Item(String,String,double)
++ String getName()
++ void setName(String)
++ void setNameRaw(String)
++ String getDescription()
++ void setDescription(String)
++ double getStartingPrice()
++ void setStartingPrice(double)
++ void setStartingPriceRaw(double)
++ Long getSellerId()
++ void setSellerId(Long)
++ {abstract}ItemCategory getCategory()
++ void displayInfo()
++ String toString()
+}
+
+
+class com.bt.shared.protocol.dto.AuctionPaidEvent {
+- long auctionId
+- long winnerBidderId
+- String winnerUsername
+- double paidAmount
+- LocalDateTime paidAt
++ <<Create>> AuctionPaidEvent()
++ long getAuctionId()
++ void setAuctionId(long)
++ long getWinnerBidderId()
++ void setWinnerBidderId(long)
++ String getWinnerUsername()
++ void setWinnerUsername(String)
++ double getPaidAmount()
++ void setPaidAmount(double)
++ LocalDateTime getPaidAt()
++ void setPaidAt(LocalDateTime)
+}
+
+
+class com.bt.shared.UserValidationTest {
+~ void usernameTooShort()
+~ void invalidEmail()
+~ void emptyPassword()
+~ void negativeBalance()
+~ void ratingOutOfRange()
+~ void accessLevelOutOfRange()
+~ void rolesAreCorrect()
+~ void emailNormalizedToLowercase()
+}
+
+class com.bt.shared.protocol.dto.LoginRequest {
+- String username
+- String password
++ <<Create>> LoginRequest()
++ <<Create>> LoginRequest(String,String)
++ String getUsername()
++ void setUsername(String)
++ String getPassword()
++ void setPassword(String)
+}
+
+
+class com.bt.shared.protocol.dto.DepositResponse {
+- double depositedAmount
+- double newBalance
+- LocalDateTime depositedAt
++ <<Create>> DepositResponse()
++ <<Create>> DepositResponse(double,double,LocalDateTime)
++ double getDepositedAmount()
++ void setDepositedAmount(double)
++ double getNewBalance()
++ void setNewBalance(double)
++ LocalDateTime getDepositedAt()
++ void setDepositedAt(LocalDateTime)
+}
+
+
+class com.bt.shared.protocol.dto.ListMyItemsRequest {
++ <<Create>> ListMyItemsRequest()
+}
+
+class com.bt.shared.exception.ValidationException {
+- {static} long serialVersionUID
++ <<Create>> ValidationException(String)
++ <<Create>> ValidationException(String,Throwable)
+}
+
+
+class com.bt.shared.protocol.dto.ItemDto {
+- long itemId
+- String name
+- String description
+- double startingPrice
+- ItemCategory category
+- long sellerId
+- String sellerUsername
+- String brand
+- Integer warrantyMonths
+- String artist
+- Integer yearCreated
+- String make
+- String model
+- Integer mileage
+- boolean hasActiveAuction
++ <<Create>> ItemDto()
++ long getItemId()
++ void setItemId(long)
++ String getName()
++ void setName(String)
++ String getDescription()
++ void setDescription(String)
++ double getStartingPrice()
++ void setStartingPrice(double)
++ ItemCategory getCategory()
++ void setCategory(ItemCategory)
++ long getSellerId()
++ void setSellerId(long)
++ String getSellerUsername()
++ void setSellerUsername(String)
++ String getBrand()
++ void setBrand(String)
++ Integer getWarrantyMonths()
++ void setWarrantyMonths(Integer)
++ String getArtist()
++ void setArtist(String)
++ Integer getYearCreated()
++ void setYearCreated(Integer)
++ String getMake()
++ void setMake(String)
++ String getModel()
++ void setModel(String)
++ Integer getMileage()
++ void setMileage(Integer)
++ boolean isHasActiveAuction()
++ void setHasActiveAuction(boolean)
+}
+
+
+class com.bt.shared.protocol.dto.RateSellerRequest {
+- long auctionId
+- int stars
+- String comment
++ <<Create>> RateSellerRequest()
++ <<Create>> RateSellerRequest(long,int,String)
++ long getAuctionId()
++ void setAuctionId(long)
++ int getStars()
++ void setStars(int)
++ String getComment()
++ void setComment(String)
+}
+
+
+class com.bt.shared.protocol.dto.SubscribeRequest {
+- long auctionId
++ <<Create>> SubscribeRequest()
++ <<Create>> SubscribeRequest(long)
++ long getAuctionId()
++ void setAuctionId(long)
+}
+
+
+class com.bt.shared.Bidder {
+- {static} long serialVersionUID
+- double accountBalance
++ <<Create>> Bidder()
++ <<Create>> Bidder(String,String,String,double)
++ double getAccountBalance()
++ void setAccountBalance(double)
++ void setAccountBalanceRaw(double)
++ void deposit(double)
++ void withdraw(double)
++ UserRole getRole()
++ void displayInfo()
+}
+
+
+class com.bt.shared.exception.InvalidBidException {
+- {static} long serialVersionUID
++ <<Create>> InvalidBidException(String)
+}
+
+
+class com.bt.shared.protocol.dto.UserSummaryDto {
+- long userId
+- String username
+- String email
+- UserRole role
+- boolean active
+- double accountBalance
+- double sellerRating
+- int accessLevel
+- LocalDateTime createdAt
++ <<Create>> UserSummaryDto()
++ long getUserId()
++ void setUserId(long)
++ String getUsername()
++ void setUsername(String)
++ String getEmail()
++ void setEmail(String)
++ UserRole getRole()
++ void setRole(UserRole)
++ boolean isActive()
++ void setActive(boolean)
++ double getAccountBalance()
++ void setAccountBalance(double)
++ double getSellerRating()
++ void setSellerRating(double)
++ int getAccessLevel()
++ void setAccessLevel(int)
++ LocalDateTime getCreatedAt()
++ void setCreatedAt(LocalDateTime)
+}
+
+
+class com.bt.shared.protocol.dto.ListMyItemsResponse {
+- List<ItemDto> items
++ <<Create>> ListMyItemsResponse()
++ <<Create>> ListMyItemsResponse(List<ItemDto>)
++ List<ItemDto> getItems()
++ void setItems(List<ItemDto>)
+}
+
+
+class com.bt.shared.Seller {
+- {static} long serialVersionUID
++ {static} double MIN_RATING
++ {static} double MAX_RATING
+- double sellerRating
++ <<Create>> Seller()
++ <<Create>> Seller(String,String,String,double)
++ double getSellerRating()
++ void setSellerRating(double)
++ void setSellerRatingRaw(double)
++ UserRole getRole()
++ void displayInfo()
+}
+
+
+class com.bt.shared.protocol.dto.RegisterAutoBidResponse {
+- long configId
+- long auctionId
+- long bidderId
+- double maxBid
+- double increment
+- boolean active
++ <<Create>> RegisterAutoBidResponse()
++ long getConfigId()
++ void setConfigId(long)
++ long getAuctionId()
++ void setAuctionId(long)
++ long getBidderId()
++ void setBidderId(long)
++ double getMaxBid()
++ void setMaxBid(double)
++ double getIncrement()
++ void setIncrement(double)
++ boolean isActive()
++ void setActive(boolean)
+}
+
+
+enum com.bt.shared.UserRole {
++  BIDDER
++  SELLER
++  ADMIN
++ {static} UserRole fromString(String)
+}
+
+
+
+
+com.bt.shared.exception.Exception <|-- com.bt.shared.exception.AuctionException
+com.bt.shared.Entity <|-- com.bt.shared.User
+com.bt.shared.event.AuctionEvent <|-- com.bt.shared.event.AuctionFinishedDomainEvent
+com.bt.shared.Item <|-- com.bt.shared.Art
+com.bt.shared.exception.AuctionException <|-- com.bt.shared.exception.AuthenticationException
+com.bt.shared.exception.AuctionException <|-- com.bt.shared.exception.AuctionStateException
+java.io.Serializable <|.. com.bt.shared.event.AuctionEvent
+com.bt.shared.Entity <|-- com.bt.shared.Auction
+com.bt.shared.Item <|-- com.bt.shared.Vehicle
+com.bt.shared.event.AuctionEvent <|-- com.bt.shared.event.BidPlacedDomainEvent
+com.bt.shared.event.AuctionEvent <|-- com.bt.shared.event.AuctionStartedDomainEvent
+com.bt.shared.Item <|-- com.bt.shared.Electronics
+com.bt.shared.Comparable <|.. com.bt.shared.BidTransaction
+com.bt.shared.Entity <|-- com.bt.shared.BidTransaction
+com.bt.shared.User <|-- com.bt.shared.Admin
+com.bt.shared.protocol.RuntimeException <|-- com.bt.shared.protocol.ProtocolException
+java.io.Serializable <|.. com.bt.shared.Entity
+com.bt.shared.Entity <|-- com.bt.shared.Item
+com.bt.shared.exception.AuctionException <|-- com.bt.shared.exception.ValidationException
+com.bt.shared.User <|-- com.bt.shared.Bidder
+com.bt.shared.exception.AuctionException <|-- com.bt.shared.exception.InvalidBidException
+com.bt.shared.User <|-- com.bt.shared.Seller
+@enduml
