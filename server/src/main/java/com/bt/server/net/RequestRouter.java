@@ -63,6 +63,10 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
+import com.bt.server.service.DepositService;
+import com.bt.shared.protocol.dto.DepositRequest;
+import com.bt.shared.protocol.dto.DepositResponse;
+
 /**
  * Dispatch message tới service tương ứng.
  *
@@ -84,10 +88,12 @@ public class RequestRouter {
     private final ConnectionRegistry registry;
     private final ConnectionObserver observer;
 
+    private final DepositService depositService;
+
     public RequestRouter(ClientConnection conn, AuthService authService,
                          AuctionService auctionService, SellerService sellerService,
                          PaymentService paymentService, RatingService ratingService,
-                         AdminService adminService,
+                         AdminService adminService, DepositService depositService,
                          AuctionEventBus eventBus, ConnectionRegistry registry) {
         this.conn = conn;
         this.authService = authService;
@@ -99,6 +105,7 @@ public class RequestRouter {
         this.eventBus = eventBus;
         this.registry = registry;
         this.observer = new ConnectionObserver(conn);
+        this.depositService = depositService;
     }
 
     public void serve() {
@@ -143,6 +150,7 @@ public class RequestRouter {
                 case LIST_USERS_REQUEST:             handleListUsers(msg); break;
                 case SET_USER_ACTIVE_REQUEST:        handleSetUserActive(msg); break;
                 case PING_REQUEST:                   handlePing(msg); break;
+                case DEPOSIT_REQUEST:   handleDeposit(msg); break;
                 default:
                     sendError(msg, ErrorCode.UNSUPPORTED_TYPE,
                             "Server chưa hỗ trợ type: " + msg.getType());
@@ -342,6 +350,24 @@ public class RequestRouter {
         log.info("Pay request: auction={} bidder={}", req.getAuctionId(), conn.getUserId());
         PayAuctionResponse resp = paymentService.pay(req.getAuctionId(), conn.getUserId());
         send(MessageType.PAY_AUCTION_RESPONSE, msg.getRequestId(), resp);
+    }
+
+    private void handleDeposit(Message msg)
+            throws IOException, ValidationException {
+        if (!conn.isAuthenticated()) {
+            sendError(msg, ErrorCode.FORBIDDEN, "Chưa đăng nhập");
+            return;
+        }
+        if (!"BIDDER".equals(conn.getRole())) {
+            sendError(msg, ErrorCode.FORBIDDEN,
+                    "Chỉ Bidder mới được nạp tiền (role hiện tại: " + conn.getRole() + ")");
+            return;
+        }
+        DepositRequest req = MessageCodec.payloadAs(msg, DepositRequest.class);
+        log.info("Deposit request từ {}: amount={}", conn.getUsername(), req.getAmount());
+        DepositResponse resp = depositService.deposit(conn.getUserId(), req);
+        log.info("Deposit OK: bidderId={} newBalance={}", conn.getUserId(), resp.getNewBalance());
+        send(MessageType.DEPOSIT_RESPONSE, msg.getRequestId(), resp);
     }
 
     // ---------- Rating ----------

@@ -65,6 +65,8 @@ public enum MessageType {
     // ==== RATING (Phase 9) ====
     RATE_SELLER_REQUEST,
     RATE_SELLER_RESPONSE,
+    DEPOSIT_REQUEST,
+    DEPOSIT_RESPONSE,
 
     // ==== HEARTBEAT (Phase 10) ====
     PING_REQUEST,

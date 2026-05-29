@@ -69,4 +69,7 @@ public class Session {
     public synchronized double getAccountBalance() { return accountBalance; }
     public synchronized double getSellerRating() { return sellerRating; }
     public synchronized int getAccessLevel() { return accessLevel; }
+    public synchronized void updateBalance(double newBalance) {
+        this.accountBalance = newBalance;
+    }
 }
