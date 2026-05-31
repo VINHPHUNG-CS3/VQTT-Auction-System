@@ -41,6 +41,8 @@ import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.function.Consumer;
 
+import java.time.LocalTime;
+
 /**
  * Phòng đấu giá realtime cho 1 phiên cụ thể.
  *
@@ -317,6 +319,67 @@ public class BiddingRoomController {
             }
         }, "place-bid").start();
     }
+//@FXML
+//private void handleBid() {
+//    bidErrorLabel.setText("");
+//    long amount = MoneyTextField.parseValue(bidInput);
+//    if (amount <= 0) {
+//        bidErrorLabel.setText("Số tiền không hợp lệ — vui lòng nhập số dương");
+//        return;
+//    }
+//    if (!Session.get().isAuthenticated()) {
+//        bidErrorLabel.setText("Bạn chưa đăng nhập");
+//        return;
+//    }
+//
+//    long bidderId = Session.get().getUserId();
+//    Long currentClientPrice = parseCurrentPriceLabel();
+//    if (currentClientPrice != null && amount <= currentClientPrice) {
+//        bidErrorLabel.setText("Giá đấu phải lớn hơn " + MoneyFormat.vnd(currentClientPrice));
+//        return;
+//    }
+//
+//    // Disable input tạm thời để tránh bấm loạn xạ trước giờ nổ súng
+//    bidInput.setDisable(true);
+//
+//    // --- BẮT ĐẦU ĐOẠN CODE HẸN GIỜ ĐỂ GIẢ LẬP CONCURRENCY ---
+//    LocalTime targetTime = LocalTime.now().withSecond(30).withNano(0);
+//    if (LocalTime.now().getSecond() >= 30) {
+//        targetTime = targetTime.plusMinutes(1);
+//    }
+//
+//    long delay = java.time.Duration.between(LocalTime.now(), targetTime).toMillis();
+//    System.out.println("➔ [JavaFX] Đã xếp hàng. Request sẽ tự động gửi sau " + (delay / 1000) + " giây (Vào giây thứ 30)...");
+//
+//    new Thread(() -> {
+//        try {
+//            // Luồng phụ ngủ đông cho tới khi đồng hồ hệ thống chạm giây thứ 30
+//            Thread.sleep(delay);
+//
+//            System.out.println("🔥 [JavaFX] ĐỒNG LOẠT BẮN REQUEST ĐẶT GIÁ LÊN SERVER!");
+//
+//            // Gửi dữ liệu lên Server (Giữ nguyên code gọi API gốc của bạn)
+//            client.placeBid(auctionId, bidderId, amount);
+//
+//            Platform.runLater(() -> {
+//                bidInput.clear();
+//                bidInput.setDisable(false);
+//                bidErrorLabel.setText("");
+//                bidInput.requestFocus();
+//            });
+//        } catch (InterruptedException e) {
+//            System.err.println("[Concurrency Test] Luồng hẹn giờ bị ngắt quãng.");
+//        } catch (AuctionClientException ex) {
+//            System.err.println("[Bid] Lỗi đặt giá: code=" + ex.getCode() + " message=" + ex.getMessage());
+//            Platform.runLater(() -> {
+//                bidInput.setDisable(false);
+//                bidErrorLabel.setText(ex.getMessage());
+//                Dialogs.error(ErrorMessages.title(ex.getCode()), ex.getMessage());
+//            });
+//        }
+//    }, "place-bid-concurrent").start();
+//    // --- KẾT THÚC ĐOẠN CODE HẸN GIỜ ---
+//}
 
     /**
      * Mở dialog đăng ký auto-bid. User nhập maxBid + increment, server sẽ
