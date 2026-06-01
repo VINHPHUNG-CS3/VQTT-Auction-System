@@ -167,7 +167,7 @@ controllers, FXML, UI)
 + Nguyễn Hoàng Quân: Shared module: Event interface, domain event, protocol DTO,
   exception handling
 
-
+## Link báo cáo PDF: https://l.facebook.com/l.php?u=https%3A%2F%2Fdrive.google.com%2Ffile%2Fd%2F1f6ui__33vY0-h4DmZtTF2ucS4a92ev1c%2Fview%3Fusp%3Dsharing%26fbclid%3DIwZXh0bgNhZW0CMTAAYnJpZBExeGFFdkpHdjB1V25qcVhSbnNydGMGYXBwX2lkEDIyMjAzOTE3ODgyMDA4OTIAAR4EGMGH_7J_tka4OMSpWSepTxjYITS3cx7JvmT5PiDvsNFm7Oo__JDu0BmfgQ_aem_bRaZLx56f34pboFWQzHVYg&h=AUAtkKUIwoRZcaSwxqync3VVSY7lQrpLBSSeRy-tV8VVDFKndFqcQXrYqgJ7fE8G92LQC80Yl5am2riqIMz4NCoP2Iwu85WlWgseJRL6oj5x3zStQd4CJmr-pm9Ed8w
 
 ## License
 
